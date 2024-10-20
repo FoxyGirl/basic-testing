@@ -23,12 +23,10 @@ describe('BankAccount', () => {
   });
 
   test('should create account with initial balance', () => {
-    // Write your test here
     expect(account?.getBalance()).toBe(balance);
   });
 
   test('should throw InsufficientFundsError error when withdrawing more than balance', () => {
-    // Write your test here
     const withdrawAmount = 1000;
 
     expect(() => account?.withdraw(withdrawAmount)).toThrow(
@@ -37,7 +35,6 @@ describe('BankAccount', () => {
   });
 
   test('should throw error when transferring more than balance', () => {
-    // Write your test here
     const amount = 1200;
     const toAccount = getBankAccount(0);
 
@@ -47,7 +44,6 @@ describe('BankAccount', () => {
   });
 
   test('should throw error when transferring to the same account', () => {
-    // Write your test here
     const amount = 1200;
 
     expect(() => account?.transfer(amount, account)).toThrow(
@@ -56,7 +52,6 @@ describe('BankAccount', () => {
   });
 
   test('should deposit money', () => {
-    // Write your test here
     const depositAmount = 500;
 
     expect(account?.deposit(depositAmount).getBalance()).toBe(
@@ -65,7 +60,6 @@ describe('BankAccount', () => {
   });
 
   test('should withdraw money', () => {
-    // Write your test here
     const withdrawAmount = 500;
 
     expect(account?.withdraw(withdrawAmount).getBalance()).toBe(
@@ -74,7 +68,6 @@ describe('BankAccount', () => {
   });
 
   test('should transfer money', () => {
-    // Write your test here
     const amount = 50;
 
     const accountBalance = 0;
@@ -87,18 +80,19 @@ describe('BankAccount', () => {
   });
 
   test('fetchBalance should return number in case if request did not failed', async () => {
-    // Write your tests here
-    const fetchedBalance = await account?.fetchBalance();
+    while (true) {
+      const fetchedBalance = await account?.fetchBalance();
 
-    // TODO: how can be handled null result?
-    console.log('==== fetchedBalance', fetchedBalance);
-    if (fetchedBalance !== null) {
-      expect(typeof fetchedBalance).toBe('number');
+      if (fetchedBalance === null) {
+        continue;
+      } else {
+        expect(typeof fetchedBalance).toBe('number');
+        break;
+      }
     }
   });
 
   test('should set new balance if fetchBalance returned number', async () => {
-    // Write your tests here
     const mockFetchedBalance = 500;
 
     jest
@@ -112,7 +106,6 @@ describe('BankAccount', () => {
   });
 
   test('should throw SynchronizationFailedError if fetchBalance returned null', async () => {
-    // Write your tests here
     const mockFetchedBalance = null;
     jest
       .spyOn(BankAccount.prototype, 'fetchBalance')
